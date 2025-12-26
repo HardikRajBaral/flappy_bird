@@ -10,6 +10,7 @@ canvas.height=window.innerHeight
 
 const bird=new Bird()
 
+const audio=new Audio('./Audio/background-music.mp3')
 
 const obstacles=[]
 
@@ -69,7 +70,15 @@ const loop=()=>{
       break
     }
 
+    if(obstacles[i].position.x<0){
+      obstacles.splice(i,1)
+    }
    }
+    if(bird.top<=0 || bird.bottom>=canvas.height){
+      alert("Game Over");
+      document.location.reload();
+    }
+
 
 }
 
@@ -80,6 +89,7 @@ document.addEventListener("keydown",(event)=>{
   if (event.key==" "){
     bird.direction.y=-1
     bird.direction.x=1
+    audio.play()
 
   }  
 })

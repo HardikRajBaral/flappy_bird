@@ -9,3 +9,15 @@ body{
     overflow: hidden;
     opacity: 0.9;
 }
+
+.score-container {
+    position: fixed;
+    top: 10px;              
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 26px;
+    font-weight: bold;
+    color: white;           
+    z-index: 10;            
+    
+}

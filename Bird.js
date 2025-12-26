@@ -18,8 +18,7 @@ export default class Bird{
             y:3
         }
         this.image=new Image()
-        this.image.src='./Image/bird.png'
-
+        this.image.src='./Image/bird.png' 
     }
 
     get left() {
@@ -46,6 +45,8 @@ export default class Bird{
     jump(){
         this.position.x+=this.speed.x*this.direction.x
         this.position.y+=this.speed.y*this.direction.y
+        
+        
     }
         
     
