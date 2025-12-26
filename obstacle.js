@@ -19,9 +19,35 @@ export default class Obstacle {
         }
         this.space=150
     }
-      get gap(){
+    get gap(){
         return  this.size.height + this.space
     }
+    get left() {
+        return this.position.x;
+    }
+
+    get right() {
+        return this.position.x + this.size.width;
+    }
+
+    get topForTopObstacle() {
+        return this.position.y;
+    }
+
+    get bottomForTopObstacle() {
+        return this.position.y + this.size.height;
+    }
+
+    get topForBottomObstacle() {
+        return this.gap;
+    }
+
+    get bottomForBottomObstacle() {
+        return this.gap + this.size.height;
+    }
+
+    
+    
     draw(ctx){
         ctx.beginPath()
         ctx.fillStyle='Green'

@@ -21,7 +21,22 @@ export default class Bird{
         this.image.src='./Image/bird.png'
 
     }
-  
+
+    get left() {
+        return this.position.x;
+    }
+
+    get right() {
+        return this.position.x + this.size.width;
+    }
+
+    get top() {
+        return this.position.y;
+    }
+
+    get bottom() {
+        return this.position.y + this.size.height;
+    }
     draw(ctx){
         ctx.beginPath()
        ctx.drawImage(this.image,0,0,300,218,this.position.x,this.position.y,this.size.width,this.size.height)

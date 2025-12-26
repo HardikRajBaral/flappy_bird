@@ -20,6 +20,33 @@ setInterval(()=>{
 },3500)
 
 
+
+function collisionDetectionForTop(A, B) {
+  if (!A || !B) return false;
+
+  if (
+    A.left < B.right &&
+    A.right> B.left &&
+    A.top < B.bottomForTopObstacle &&
+    A.bottom> B.topForTopObstacle
+  ) {
+    return true;
+  }
+}
+function collisionDetectionForBottom(A, B) {
+  if (!A || !B) return false;
+
+  if (
+    A.left < B.right &&
+    A.right > B.left &&
+    A.top < B.bottomForBottomObstacle &&
+    A.bottom > B.topForBottomObstacle
+  ) {
+    return true;
+  }
+}
+
+
 const loop=()=>{
     requestAnimationFrame(loop)
     ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -28,6 +55,20 @@ const loop=()=>{
    for(let i =0; i<obstacles.length;i++){
         obstacles[i].draw(ctx)
         obstacles[i].move()
+   }
+
+   for(let i=0;i<obstacles.length;i++){
+    if(collisionDetectionForTop(bird,obstacles[i])){
+      alert("Game Over");
+      document.location.reload();
+      break
+    }
+    if(collisionDetectionForBottom(bird,obstacles[i])){
+      alert("Game Over");
+      document.location.reload();
+      break
+    }
+
    }
 
 }
