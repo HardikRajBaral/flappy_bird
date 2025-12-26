@@ -17,14 +17,14 @@ export default class Bird{
             x:0,
             y:3
         }
-        
+        this.image=new Image()
+        this.image.src='./Image/bird.png'
 
     }
   
     draw(ctx){
         ctx.beginPath()
-        ctx.fillStyle='green'
-        ctx.fillRect(this.position.x,this.position.y,this.size.width,this.size.height)
+       ctx.drawImage(this.image,0,0,300,218,this.position.x,this.position.y,this.size.width,this.size.height)
         
     }
 

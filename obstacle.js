@@ -24,7 +24,7 @@ export default class Obstacle {
     }
     draw(ctx){
         ctx.beginPath()
-        ctx.fillStyle='Red'
+        ctx.fillStyle='Green'
         ctx.fillRect(this.position.x,this.position.y,this.size.width,this.size.height)
         ctx.fillRect(this.position.x,this.gap,this.size.width,canvas.height)
     }
