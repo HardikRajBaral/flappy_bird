@@ -42,6 +42,13 @@ export default class Obstacle {
         return this.gap;
     }
 
+    get width(){
+        return this.gap + this.size.width;
+    }
+
+    get height(){
+        return  this.size.height;
+    }
     get bottomForBottomObstacle() {
         return this.gap + this.size.height;
     }

@@ -14,12 +14,23 @@ const audio=new Audio('./Audio/background-music.mp3')
 
 const obstacles=[]
 
+
+ const scoreElement = document.getElementById("score");
+  let score = 0;
+
+
+
 setInterval(()=>{
     let x=canvas.width/2
     let y=Math.floor(Math.random()*(canvas.height-(canvas.height*0.6)-(canvas.height*0.4)+canvas.height*0.4))
     obstacles.push(new Obstacle(x,y))
 },3500)
 
+function updateScore() {
+  if (bird.right > obstacles[i].width &&  bird.left < obstacles[i].right ){
+        return true
+  }
+}
 
 
 function collisionDetectionForTop(A, B) {
@@ -48,6 +59,7 @@ function collisionDetectionForBottom(A, B) {
 }
 
 
+
 const loop=()=>{
     requestAnimationFrame(loop)
     ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -59,26 +71,32 @@ const loop=()=>{
    }
 
    for(let i=0;i<obstacles.length;i++){
-    if(collisionDetectionForTop(bird,obstacles[i])){
-      alert("Game Over");
-      document.location.reload();
-      break
-    }
-    if(collisionDetectionForBottom(bird,obstacles[i])){
-      alert("Game Over");
-      document.location.reload();
-      break
-    }
+      if(collisionDetectionForTop(bird,obstacles[i])){
+        alert("Game Over");
+        document.location.reload();
+        break
+      }
+      if(collisionDetectionForBottom(bird,obstacles[i])){
+        alert("Game Over");
+        document.location.reload();
+        break
+      }
 
-    if(obstacles[i].position.x<0){
-      obstacles.splice(i,1)
-    }
+      if(obstacles[i].position.x<0){
+        obstacles.splice(i,1)
+      }
+      if (updateScore()) {
+        score++;
+        scoreElement.textContent = score;
+        break; 
+      }
+    
    }
     if(bird.top<=0 || bird.bottom>=canvas.height){
       alert("Game Over");
       document.location.reload();
     }
-
+    
 
 }
 
