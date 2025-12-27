@@ -18,6 +18,7 @@ export default class Obstacle {
             y:1
         }
         this.space=150
+        this.passed=false
     }
     get gap(){
         return  this.size.height + this.space

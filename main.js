@@ -10,12 +10,11 @@ canvas.height=window.innerHeight
 
 const bird=new Bird()
 
-const audio=new Audio('./Audio/background-music.mp3')
 
 const obstacles=[]
 
 
- const scoreElement = document.getElementById("score");
+ const scoreUpdate = document.getElementById("score");
   let score = 0;
 
 
@@ -26,11 +25,6 @@ setInterval(()=>{
     obstacles.push(new Obstacle(x,y))
 },3500)
 
-function updateScore() {
-  if (bird.right > obstacles[i].width &&  bird.left < obstacles[i].right ){
-        return true
-  }
-}
 
 
 function collisionDetectionForTop(A, B) {
@@ -42,6 +36,7 @@ function collisionDetectionForTop(A, B) {
     A.top < B.bottomForTopObstacle &&
     A.bottom> B.topForTopObstacle
   ) {
+    A.direction.y=0
     return true;
   }
 }
@@ -54,12 +49,17 @@ function collisionDetectionForBottom(A, B) {
     A.top < B.bottomForBottomObstacle &&
     A.bottom > B.topForBottomObstacle
   ) {
+    A.direction.y=0
     return true;
   }
 }
 
-
-
+function collisioOnTheEdges(A){  
+    if(A.top<=0 || A.bottom>=canvas.height){
+        A.direction.y=0
+        return true;
+    }
+}
 const loop=()=>{
     requestAnimationFrame(loop)
     ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -71,31 +71,26 @@ const loop=()=>{
    }
 
    for(let i=0;i<obstacles.length;i++){
-      if(collisionDetectionForTop(bird,obstacles[i])){
-        alert("Game Over");
-        document.location.reload();
-        break
-      }
-      if(collisionDetectionForBottom(bird,obstacles[i])){
-        alert("Game Over");
-        document.location.reload();
-        break
-      }
+    if(bird.isDead){
+      bird.direction.y=0
+      ctx.beginPath()
+      ctx.fillStyle='red'
+      ctx.font="48px Arial"
+      ctx.fillText('Game Over',canvas.width/2 -150,canvas.height/2)
+      break;
+    }
+      bird.isDead =(collisionDetectionForTop(bird,obstacles[i]) || collisionDetectionForBottom(bird,obstacles[i])|| collisioOnTheEdges(bird))
 
       if(obstacles[i].position.x<0){
         obstacles.splice(i,1)
       }
-      if (updateScore()) {
+      if(obstacles[i].position.x===bird.position.x){
         score++;
-        scoreElement.textContent = score;
-        break; 
+        scoreUpdate.textContent = score
       }
     
    }
-    if(bird.top<=0 || bird.bottom>=canvas.height){
-      alert("Game Over");
-      document.location.reload();
-    }
+    
     
 
 }
@@ -107,7 +102,7 @@ document.addEventListener("keydown",(event)=>{
   if (event.key==" "){
     bird.direction.y=-1
     bird.direction.x=1
-    audio.play()
+    
 
   }  
 })

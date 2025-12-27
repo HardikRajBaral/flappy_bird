@@ -19,6 +19,7 @@ export default class Bird{
         }
         this.image=new Image()
         this.image.src='./Image/bird.png' 
+        this.isDead=false
     }
 
     get left() {
@@ -38,7 +39,7 @@ export default class Bird{
     }
     draw(ctx){
         ctx.beginPath()
-       ctx.drawImage(this.image,0,0,300,218,this.position.x,this.position.y,this.size.width,this.size.height)
+        ctx.drawImage(this.image,0,0,300,218,this.position.x,this.position.y,this.size.width,this.size.height)
         
     }
 
